@@ -16,7 +16,7 @@ class FileStorage:
         for key, value in self.__objects.items():
 #            print("in def all {}".format(key))
 #            print("in def all {}".format(value))
-             if __class__.__name__ is value.__class__.__name__:
+             if cls.__name__ is value.__class__.__name__:
                  tmp_dict[key] = value
         return tmp_dict
 

@@ -4,7 +4,7 @@
 -- GRANT USER ALL privileges on hbnb_dev_db
 -- GRANT USER SELEDT privileges on performance_schema
 
-CREATE DATABASE IF NOT EXISTS hbnb_dev_test;
+CREATE DATABASE IF NOT EXISTS hbnb_test_db;
 
 CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
 

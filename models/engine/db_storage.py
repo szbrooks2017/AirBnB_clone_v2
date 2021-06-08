@@ -13,22 +13,21 @@ from models.place import Place
 from models.review import Review
 
 classes = {
-    'User': User,
-    'Place': Place,
+    #'User': User,
+    #'Place': Place,
     'State': State,
-    'City': City,
-    'Amenity': Amenity,
-    'Review': Review}
+    'City': City}
+    #'Amenity': Amenity,
+    #'Review': Review}
 
  
 class DBStorage:
     """DBStorage creates the engine connected to hbnb_dev_db"""
-    __engine=None
-    __session=None
+    __engine = None
+    __session = None
     
     
     def __init__(self):
-
         user = os.getenv('HBNB_MYSQL_USER')
         password = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
@@ -45,6 +44,7 @@ class DBStorage:
     def all(self, cls=None):
         """queries database to return instances of specified class or all objects"""
         objects_dict = {}
+        
         if cls is None:
             for classname in classes.values():
                 for _cls in self.__session.query(classname):
@@ -76,7 +76,8 @@ class DBStorage:
         """  """
         Base.metadata.create_all(self.__engine)
         sesh = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(sesh)()
+        Session = scoped_session(sesh)
+        self.__session = Session()
         
 
 #cascade() / delete_orphan()

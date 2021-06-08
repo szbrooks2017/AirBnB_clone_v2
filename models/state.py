@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
+from models.city import City
 
 class State(BaseModel, Base):
     """ State class """
@@ -14,8 +15,9 @@ class State(BaseModel, Base):
     @property
     def cities(self):
         """getter for cities"""
+        from models import storage
         get_cities = []
-        for k,v in models.storage.all(City).items():
+        for k,v in storage.all(City).items():
             if v.state_id == self.id:
                 get_cities.append(v)
         return get_cities

@@ -13,7 +13,7 @@ from models.place import Place
 from models.review import Review
 
 classes = {
-    #'User': User,
+    'User': User,
     #'Place': Place,
     'State': State,
     'City': City}

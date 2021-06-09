@@ -35,7 +35,7 @@ class TestConsoleClass(unittest.TestCase):
         """test regular case"""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create State")
-            s_id = f.getvalue()
+            s_id = f.getvalue()[:-1]
             command = 'State.show({})'
             command = command.format(s_id)
             HBNBCommand().onecmd(command)

@@ -13,7 +13,24 @@ from models.engine.file_storage import FileStorage
 
 fs = FileStorage()
 
+args = {
+    'user': os.getenv('HBNB_MYSQL_USER'),
+    'passwd': os.getenv('HBNB_MYSQL_PWD'),
+    'db': os.getenv('HBNB_MYSQL_DB'),
+    'host': os.getenv('HBNB_MYSQL_HOST')
+}
+
+# make dictionary
+# make a conncection
+# make cursor object
+# fetch one
+# with patch create state
+# name = state
+# length 2 = length 1 + 1.
+
+
 class TestConsoleClass(unittest.TestCase):
+
     """test for conosle"""
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', 'file')
     def test_state(self):
@@ -51,6 +68,21 @@ class TestConsoleClass(unittest.TestCase):
             m = f.getvalue()
         with open(fs._FileStorage__file_path, 'r') as fd:
             self.assertIn(st_id, fd.read())
+
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', 'file')
+    def test_DB_create(self):
+        """test state for DB"""
+        self.db_connection = MySQLdb.connect(**args)
+        self.cursor = self.db_connection.cursor()
+        self.cursor.execute('SELECT count(*) FROM states')
+        length1 = self.cursor.fetchone()[0]
+        self.cursor.reload()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State name='Montana'")
+        self.cursor = self.db_connection.cursor()
+        self.cursor.execute('SELECT count(*) FROM states')
+        length2 = self.cursor.fetchone()[0]
+        self.assertEqual(lenth2, length1 + 1)
 
 if __name__ == '__main__':
     unittest.main()

@@ -17,8 +17,8 @@ classes = {
     'Place': Place,
     'State': State,
     'City': City}
-    #'Amenity': Amenity,
-    #'Review': Review}
+    'Amenity': Amenity,
+    'Review': Review}
 
  
 class DBStorage:

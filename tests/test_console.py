@@ -31,5 +31,17 @@ class TestConsoleClass(unittest.TestCase):
             c_id = f.getvalue()
             self.assertTrue(len(c_id) > 0)
 
+    def test_single_state(self):
+        """test regular case"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            s_id = f.getvalue()
+            command = 'State.show({})'
+            command = command.format(s_id)
+            HBNBCommand().onecmd(command)
+            state_id = f.getvalue()
+            self.assertIn(s_id, state_id)
+            
+
 if __name__ == '__main__':
     unittest.main()

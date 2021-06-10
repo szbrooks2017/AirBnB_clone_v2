@@ -10,6 +10,7 @@ from unittest.mock import patch
 from console import HBNBCommand
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.engine.db_storage import DBStorage
 
 args = {
     'user': os.getenv('HBNB_MYSQL_USER'),
@@ -21,12 +22,21 @@ args = {
 
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', 'file')
 class TestDBStorage(unittest.TestCase):
+
+    def setUp(self):
+        self.db_connection = MySQLdb.connect(**self.args)
+        self.cursor = self.db_connection.cursor()
+
+    def tearDown(self):
+        self.cursor.close()
+        self.db_connection.close()
+
     def test_all(self):
         """tests if all works in File Storage"""
         storage = DBStorage()
         storage.reload()
         new_dict = len(storage.all())
-        s = State(name="test_all_state")
+        s = State(name="New_York")
         s.save()
         storage.save()
         self.assertIs(len(storage.all()), new_dict + 1)

@@ -6,6 +6,15 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
 from models.amenity import Amenity
 
+metadata = Base.metadata
+
+place_amenity = Table('place_amenity', metadata,
+    Column('place_id', String(60), ForeignKey('places.id'),
+           primary_key=True, nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'),
+           primary_key=True, nullable=False),
+    )
+
 class Place(BaseModel, Base):
     """The place class"""
     __tablename__ = "places"
@@ -23,16 +32,8 @@ class Place(BaseModel, Base):
     amenity_ids = []
     reviews = relationship("Review", backref="place")
     amenities = relationship("Amenity", secondary="place_amenity",
-                             back_populates="place_amenities")
+                             viewonly=False, backref="place_amenities")
 
-    metadata = Base.metadata
-
-    place_amenity = Table(Amenity, metadata,
-        Column('place_id', String(60), ForeignKey('places.id'),
-               primary_key=True, nullable=False),
-        Column('amenity_id', String(60), ForeignKey('amenities.id'),
-               primary_key=True, nullable=False),
-        )
   
     @property
     def reviews(self):
@@ -45,7 +46,7 @@ class Place(BaseModel, Base):
         return self.amenity_ids
 
     @amenities.setter
-    def amenities(self, amenities):
+    def amenities(self, value):
         """setter for amenities"""
-        self.aenities_ids.append(amenities)
-        return self.amenity_ids
+        self.amenities_ids.append(value)
+

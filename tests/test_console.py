@@ -50,6 +50,7 @@ class TestConsoleClass(unittest.TestCase):
             c_id = f.getvalue()
             self.assertTrue(len(c_id) > 0)
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', 'file')
     def test_single_state(self):
         """test regular case"""
         if os.path.exists(fs._FileStorage__file_path):

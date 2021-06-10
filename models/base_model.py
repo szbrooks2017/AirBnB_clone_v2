@@ -7,7 +7,9 @@ from sqlalchemy import Column, Integer, String, DateTime
 
 Base = declarative_base()
 
+
 class BaseModel:
+
     """A base class for all hbnb models"""
     id = Column(String(60), unique=True, primary_key=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
@@ -15,17 +17,18 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        if not kwargs:
+        if kwargs:
+            for key in kwargs.keys():
+                if key in ('created_at', 'updated_at'):
+                    kwargs[key] = datetime.strptime(
+                        kwargs[key],
+                        '%Y-%m-%dT%H:%M:%S.%f')
+                if key != ('__class__'):
+                    setattr(self, key, kwargs[key])
+        else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-        else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
-            self.__dict__.update(kwargs)
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -54,5 +57,5 @@ class BaseModel:
         dictionary['updated_at'] = self.updated_at.isoformat()
         copy_dict = dictionary.copy()
         if "_sa_instance_state" in copy_dict:
-            del copy_dict["_sa_instance_state"] 
+            del copy_dict["_sa_instance_state"]
         return copy_dict

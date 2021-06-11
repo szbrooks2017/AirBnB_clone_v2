@@ -4,8 +4,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
-from models.place import place_amenity
-
 
 class Amenity(BaseModel, Base):
     """ The Amenity Class """
@@ -15,3 +13,4 @@ class Amenity(BaseModel, Base):
                                    backref="amenities")
 
 
+       

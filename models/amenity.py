@@ -8,7 +8,7 @@ from models.place import place_amenity
 
 
 class Amenity(BaseModel, Base):
-    """ The Amenity Class """
+    """ The Amenity Class and relationship` """
 
     __tablename__ = "amenities"
 

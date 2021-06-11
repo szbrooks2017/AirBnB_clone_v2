@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Table, Integer, String, DateTime, Float, MetaData
+from sqlalchemy import Column, Table, Integer, String, DateTime, Float
+from sqlalchemy import MetaData
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
 from models.amenity import Amenity
@@ -9,13 +10,15 @@ from models.amenity import Amenity
 metadata = Base.metadata
 
 place_amenity = Table('place_amenity', metadata,
-    Column('place_id', String(60), ForeignKey('places.id'),
-           primary_key=True, nullable=False),
-    Column('amenity_id', String(60), ForeignKey('amenities.id'),
-           primary_key=True, nullable=False),
-    )
+                      Column('place_id', String(60), ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
+
 
 class Place(BaseModel, Base):
+
     """The place class"""
     __tablename__ = "places"
 
@@ -34,12 +37,11 @@ class Place(BaseModel, Base):
     amenities = relationship("Amenity", secondary="place_amenity",
                              viewonly=False, backref="place_amenities")
 
-  
     @property
     def reviews(self):
         """returns list of reviews with shared place id"""
         return self.reviews
-   
+
     @property
     def amenities(self):
         """getter for amenities"""
@@ -49,4 +51,3 @@ class Place(BaseModel, Base):
     def amenities(self, value):
         """setter for amenities"""
         self.amenities_ids.append(value)
-

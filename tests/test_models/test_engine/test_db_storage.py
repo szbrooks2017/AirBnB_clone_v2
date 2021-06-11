@@ -22,21 +22,39 @@ args = {
 
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', 'file')
 class TestDBStorage(unittest.TestCase):
+    """class for test dbstorage"""
 
-    def setUp(self):
-        self.db_connection = MySQLdb.connect(**self.args)
+    def test_DB_create(self):
+        """test state for DB"""
+        self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()
-
-    def tearDown(self):
+        self.cursor.execute('SELECT count(*) FROM states')
+        length1 = self.cursor.fetchone()[0]
         self.cursor.close()
-        self.db_connection.close()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State name='Montana'")
+        self.db_connection = MySQLdb.connect(**args)
+        self.cursor = self.db_connection.cursor()
+        self.cursor.execute('SELECT count(*) FROM states')
+        length2 = self.cursor.fetchone()[0]
+        self.assertEqual(length2, length1 + 1)
 
-    def test_all(self):
-        """tests if all works in File Storage"""
-        storage = DBStorage()
-        storage.reload()
-        new_dict = len(storage.all())
-        s = State(name="New_York")
-        s.save()
-        storage.save()
-        self.assertIs(len(storage.all()), new_dict + 1)
+    def test_DB_create(self):
+        """test state for DB"""
+        self.db_connection = MySQLdb.connect(**args)
+        self.cursor = self.db_connection.cursor()
+        self.cursor.execute('SELECT count(*) FROM cities')
+        length1 = self.cursor.fetchone()[0]
+        self.cursor.close()
+        with patch('sys.stdout', new=StringIO()) as f:
+            name = 'name = "San Francisco"'
+            command = 'create City {} "{}"'
+            command = command.format(s_id, name)
+            HBNBCommand().onecmd(command)
+            c_id = f.getvalue()
+            self.assertTrue(len(c_id) > 0)
+        self.db_connection = MySQLdb.connect(**args)
+        self.cursor = self.db_connection.cursor()
+        self.cursor.execute('SELECT count(*) FROM cities')
+        length2 = self.cursor.fetchone()[0]
+        self.assertEqual(length2, length1 + 1)

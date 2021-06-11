@@ -83,7 +83,7 @@ class TestConsoleClass(unittest.TestCase):
         self.cursor = self.db_connection.cursor()
         self.cursor.execute('SELECT count(*) FROM states')
         length2 = self.cursor.fetchone()[0]
-        self.assertEqual(lenth2, length1 + 1)
+        self.assertEqual(length2, length1 + 1)
 
 if __name__ == '__main__':
     unittest.main()

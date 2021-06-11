@@ -77,7 +77,7 @@ class TestConsoleClass(unittest.TestCase):
         self.cursor = self.db_connection.cursor()
         self.cursor.execute('SELECT count(*) FROM states')
         length1 = self.cursor.fetchone()[0]
-        self.cursor.reload()
+#        self.cursor.reload()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create State name='Montana'")
         self.cursor = self.db_connection.cursor()

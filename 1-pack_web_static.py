@@ -10,7 +10,7 @@ def do_pack():
 
     now = datetime.now()
 
-    tarArchiveName = "web_static"+ now.strftime("%Y%m%d%H%M%S") + ".tgz"
+    tarArchiveName = "web_static" + now.strftime("%Y%m%d%H%M%S") + ".tgz"
     tarArchivePath = "versions/" + tarArchiveName
 
     local("mkdir -p versions")

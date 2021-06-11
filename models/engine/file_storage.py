@@ -16,17 +16,15 @@ class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
     __objects = {}
-    
+
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is None:
             return FileStorage.__objects
         tmp_dict = {}
         for key, value in self.__objects.items():
-#            print("in def all {}".format(key))
-#            print("in def all {}".format(value))
-             if cls.__name__ is value.__class__.__name__:
-                 tmp_dict[key] = value
+            if cls.__name__ is value.__class__.__name__:
+                tmp_dict[key] = value
         return tmp_dict
 
     def delete(self, obj=None):

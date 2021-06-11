@@ -4,7 +4,7 @@ import os
 import sys
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import Base  
+from models.base_model import Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -20,31 +20,30 @@ classes = {
     'Amenity': Amenity,
     'Review': Review}
 
- 
+
 class DBStorage:
     """DBStorage creates the engine connected to hbnb_dev_db"""
     __engine = None
     __session = None
-    
-    
+
     def __init__(self):
         user = os.getenv('HBNB_MYSQL_USER')
         password = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
         database = os.getenv('HBNB_MYSQL_DB')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                           .format(user,
-                                   password,
-                                   host,
-                                   database),
-                                   pool_pre_ping=True)
+                                      .format(user,
+                                              password,
+                                              host,
+                                              database),
+                                      pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
-        """queries database to return instances of specified class or all objects"""
+        """queries database, returns instances of class or all objects"""
         objects_dict = {}
-        
+
         if cls is None:
             for classname in classes.values():
                 for _cls in self.__session.query(classname):
@@ -56,8 +55,8 @@ class DBStorage:
                 for _cls in self.__session.query(classname):
                     key = _cls.__class__.__name__+'.'+_cls.id
                     objects_dict[key] = _cls
-            return objects_dict   
-                
+            return objects_dict
+
     def new(self, obj):
         """adds object to the current database session"""
         self.__session.add(obj)
@@ -78,6 +77,3 @@ class DBStorage:
         sesh = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sesh)
         self.__session = Session()
-        
-
-#cascade() / delete_orphan()

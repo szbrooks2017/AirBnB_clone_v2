@@ -39,10 +39,13 @@ class TestDBStorage(unittest.TestCase):
         length2 = self.cursor.fetchone()[0]
         self.assertEqual(length2, length1 + 1)
 
-    def test_DB_create(self):
+    def test_DB_create2(self):
         """test state for DB"""
         self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State name='California'")
+            s_id = f.getvalue()[:-1]
         self.cursor.execute('SELECT count(*) FROM cities')
         length1 = self.cursor.fetchone()[0]
         self.cursor.close()

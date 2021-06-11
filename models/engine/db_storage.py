@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 """define class"""
 import os
-import sys
-from sqlalchemy import MetaData, create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import Base
+from sqlalchemy import create_engine
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -69,10 +67,11 @@ class DBStorage:
         """Deletes from the current database session"""
         if obj:
             self.__session.delete(obj)
-            # self.__session.save()
 
     def reload(self):
         """  """
+        from sqlalchemy.orm import sessionmaker, scoped_session
+        from sqlalchemy.orm.session import Session
         Base.metadata.create_all(self.__engine)
         sesh = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sesh)

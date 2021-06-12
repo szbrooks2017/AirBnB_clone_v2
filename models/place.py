@@ -53,4 +53,4 @@ class Place(BaseModel, Base):
     @amenities.setter
     def amenities(self, value):
         """setter for amenities"""
-        self.amenities_ids.append(value)
+        self.amenity_ids.append(value)

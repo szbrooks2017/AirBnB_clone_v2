@@ -54,8 +54,7 @@ class TestDBStorage(unittest.TestCase):
             command = 'create City {} "{}"'
             command = command.format(s_id, name)
             HBNBCommand().onecmd(command)
-            c_id = f.getvalue()
-            self.assertTrue(len(c_id) > 0)
+            c_id = f.getvalue()[:-1]
         self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()
         self.cursor.execute('SELECT count(*) FROM cities')

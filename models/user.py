@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """ User Module for HBNB project """
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, DateTime
+from models.base_model import BaseModel, Base, Column, String
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.schema import ForeignKey
 
 
 class User(BaseModel, Base):

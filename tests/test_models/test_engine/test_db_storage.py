@@ -52,9 +52,9 @@ class TestDBStorage(unittest.TestCase):
         self.cursor.close()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create State name='California'")
-            s_id = f.getvalue()[:-1]
-            name = 'name = "San Francisco"'
-            command = 'create City {} "{}"'
+            s_id = f.getvalue()
+            name = "San_Francisco"
+            command = 'create City state_id="{}" name={}'
             command = command.format(s_id, name)
             HBNBCommand().onecmd(command)
             c_id = f.getvalue()[:-1]

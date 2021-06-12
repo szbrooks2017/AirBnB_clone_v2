@@ -51,13 +51,11 @@ class TestDBStorage(unittest.TestCase):
         length1 = self.cursor.fetchone()[0]
         self.cursor.close()
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("create State name='California'")
-            s_id = f.getvalue()
-            name = "San_Francisco"
+            HBNBCommand().onecmd("create State name='CA' id='4'")
+            name = "S_F"
             command = 'create City state_id="{}" name={}'
-            command = command.format(s_id, name)
+            command = command.format(4, name)
             HBNBCommand().onecmd(command)
-            c_id = f.getvalue()[:-1]
         self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()
         self.cursor.execute('SELECT count(*) FROM cities')

@@ -50,7 +50,7 @@ class DBStorage:
             return objects_dict
         else:
             if cls in classes.values():
-                for _cls in self.__session.query(classname):
+                for _cls in self.__session.query(cls):
                     key = _cls.__class__.__name__+'.'+_cls.id
                     objects_dict[key] = _cls
             return objects_dict

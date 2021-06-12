@@ -41,7 +41,6 @@ class TestDBStorage(unittest.TestCase):
 
     def test_DB_create2(self):
         """test state for DB"""
-        self.cursor.close()
         self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()
         with patch('sys.stdout', new=StringIO()) as f:

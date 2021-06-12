@@ -52,9 +52,8 @@ class TestDBStorage(unittest.TestCase):
         self.cursor.close()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create State name='CA' id='4'")
-            name = "S_F"
-            command = 'create City state_id="{}" name={}'
-            command = command.format(4, name)
+            command = 'create City state_id={} name={}'
+            command = command.format(4, "Atlanta")
             HBNBCommand().onecmd(command)
         self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()

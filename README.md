@@ -111,7 +111,7 @@ Usage: <class_name>.all() shows all instances of a class in the following way.
 ```
 
 #### **Example 1: Destroy a User**
-Usage: <class_name>.destroy(<id>) destroys an instance of a class in the following way.
+Usage: <class_name>.destroy(<id>) destroys an instance of a class in the following way. Example shows as if only one object existed.
 ```
 (hbnb) User.destroy("99f45908-1d17-46d1-9dd2-b7571128115b")
 (hbnb)

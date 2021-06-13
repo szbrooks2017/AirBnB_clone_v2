@@ -138,7 +138,7 @@ Usage: <class_name>.update(<id>, <dictionary>) updates multiple attributes in th
 <br>
 
 ### **Authors**
-Ezra Nobrega <ezra.nobrega@outlook.com> <codebase author>
-Justin Majetich <justinmajetich@gmail.com> <codebase author>
+Ezra Nobrega <ezra.nobrega@outlook.com> 
+Justin Majetich <justinmajetich@gmail.com> 
 Stratton Brooks <2494@holbertonschool.com>
 Chris Vanndy <2736@holbertonschool.com>

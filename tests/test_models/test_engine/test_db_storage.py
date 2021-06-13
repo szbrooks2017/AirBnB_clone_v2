@@ -23,11 +23,17 @@ args = {
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', 'file')
 class TestDBStorage(unittest.TestCase):
     """class for test dbstorage"""
+    def setUp(self):
+        """set up db storage"""
+        self.db_connection = MySQLdb.connect(**args)
+        self.cursor = self.db_connection.cursor()
+
+    def tearDown(self):
+        self.db_connection = MySQLdb.connect(**args)
+        self.cursor = self.db_connection.cursor()
 
     def test_DB_create(self):
         """test state for DB"""
-        self.db_connection = MySQLdb.connect(**args)
-        self.cursor = self.db_connection.cursor()
         self.cursor.execute('SELECT count(*) FROM states')
         length1 = self.cursor.fetchone()[0]
         self.cursor.close()
@@ -41,21 +47,13 @@ class TestDBStorage(unittest.TestCase):
 
     def test_DB_create2(self):
         """test state for DB"""
-        self.db_connection = MySQLdb.connect(**args)
-        self.cursor = self.db_connection.cursor()
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("create State name='California'")
-            s_id = f.getvalue()[:-1]
         self.cursor.execute('SELECT count(*) FROM cities')
         length1 = self.cursor.fetchone()[0]
         self.cursor.close()
         with patch('sys.stdout', new=StringIO()) as f:
-            name = 'name = "San Francisco"'
-            command = 'create City {} "{}"'
-            command = command.format(s_id, name)
+            HBNBCommand().onecmd("create State name='CA' id='4'")
+            command = 'create City state_id="4" name="s"'
             HBNBCommand().onecmd(command)
-            c_id = f.getvalue()
-            self.assertTrue(len(c_id) > 0)
         self.db_connection = MySQLdb.connect(**args)
         self.cursor = self.db_connection.cursor()
         self.cursor.execute('SELECT count(*) FROM cities')

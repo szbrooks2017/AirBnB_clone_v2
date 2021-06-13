@@ -31,13 +31,13 @@ The programs init function determines wether file_storage or db_storage will be 
     * Review
 
 ##### Commands
-    * create - Creates an instance based on given class
+    * create - Creates an instance based on supplied class type
 
     * destroy - Destroys an object based on class and UUID
 
     * show - Shows an object based on class and UUID
 
-    * all - Shows all objects the program has access to, or all objects of a given class
+    * all - Shows all objects, or all objects of a given class if specified.
 
     * update - Updates existing attributes an object based on class name and UUID
 

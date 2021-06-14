@@ -24,10 +24,10 @@ def do_deploy(archive_path):
         run('tar -xzvf /tmp/' + archiveName +
             " -C /data/web_static/releases/" +
             archiveNameWithoutExtension + " --strip-components=1")
-        run("rm -f /tmp/" + archiveName)
-        run("rm -f /data/web_static/current")
+        run("rm -rf /tmp/" + archiveName)
+        run("rm -rf /data/web_static/current")
         run("sudo ln -sf /data/web_static/releases/" +
-            archiveNameMinusExtension + " /data/web_static/current")
+            archiveNameWithoutExtention + " /data/web_static/current")
 
         return True
     except:

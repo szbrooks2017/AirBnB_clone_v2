@@ -7,6 +7,7 @@ import os.path
 
 env.hosts = ['35.231.1.112', '54.167.91.234']
 
+
 def do_deploy(archive_path):
     """deploy to web-server"""
 
@@ -17,7 +18,8 @@ def do_deploy(archive_path):
         archiveName = archive_path[9:]
         archiveNameWithoutExtention = archiveName[:-4]
         put(archive_path, '/tmp/' + archiveName)
-        run("mkdir -p /data/web_static/releases/" + archiveNameWithoutExtension)
+        run("mkdir -p /data/web_static/releases/" +
+            archiveNameWithoutExtension)
         # no space after /tmp/ add a space before -c
         run('tar -xzvf /tmp/' + archiveName +
             " -C /data/web_static/releases/" +
@@ -30,6 +32,7 @@ def do_deploy(archive_path):
         return True
     except:
         return False
+
 
 def do_pack():
     """ Pack up our web_static """

@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """ Compressing a fabric file"""
-
 from fabric.api import local
 from datetime import datetime
 
@@ -10,7 +9,6 @@ def do_pack():
 
 try:
     now = datetime.now()
-    # add _ after web static
     tarArchiveName = "web_static_" + now.strftime("%Y%m%d%H%M%S") + ".tgz"
     tarArchivePath = "versions/" + tarArchiveName
     local("sudo mkdir -p versions")

@@ -13,10 +13,11 @@ def deploy():
     archive = do_pack()
     if archive is None:
         return False
-    
+
     status = do_deploy(archive)
 
     return status
+
 
 def do_deploy(archive_path):
     """deploy to web-server"""

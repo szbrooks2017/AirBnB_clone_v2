@@ -26,7 +26,7 @@ def do_deploy(archive_path):
 
     try:
         archiveName = archive_path[9:]
-        archiveNameWithoutExtention = archiveName[:-4]
+        archiveNameWithoutExtension = archiveName[:-4]
         put(archive_path, '/tmp/' + archiveName)
         run("mkdir -p /data/web_static/releases/" +
             archiveNameWithoutExtension)
@@ -37,7 +37,7 @@ def do_deploy(archive_path):
         run("rm -rf /tmp/" + archiveName)
         run("rm -rf /data/web_static/current")
         run("sudo ln -sf /data/web_static/releases/" +
-            archiveNameWithoutExtention + " /data/web_static/current")
+            archiveNameWithoutExtension + " /data/web_static/current")
 
         return True
     except:

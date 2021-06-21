@@ -7,7 +7,7 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.route("/states_list/")
+@app.route("/states_list/", strict_slashes=False)
 def s_list():
     s = storage.all(State).values()
     return render_template('7-states_list.html', s=s)

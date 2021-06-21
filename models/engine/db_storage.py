@@ -70,7 +70,7 @@ class DBStorage:
 
     def close(self):
         """ removing private session"""
-        self.__session.remove()
+        self.__session.close()
 
     def reload(self):
         """  """

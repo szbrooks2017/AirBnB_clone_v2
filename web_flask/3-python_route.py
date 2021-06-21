@@ -19,7 +19,7 @@ def display():
 def c_text(text):
     return "C {}".format(text.replace('_', ' '))
 
-
+@app.route('/python/')
 @app.route('/python/(<text>)', strict_slashes=False)
 def p_text(text="is cool"):
     return "Python {}".format(text.replace('_', ' '))

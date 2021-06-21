@@ -1,4 +1,4 @@
-i!DOCTYPE html>
+<!DOCTYPE html>
 <HTML lang="en">
     <HEAD>
         <TITLE>HBNB</TITLE>
@@ -7,7 +7,7 @@ i!DOCTYPE html>
         <H1>States</H1>
         <UL>
         {% for sort_list in states|sort(attribute='name') %}
-            <LI>{{state.id}}: <B>{{ state.name }}</B></LI>
+            <LI>{{sort_list.id}}: <B>{{ sort_list.name }}</B></LI>
         {% endfor %}
         </UL>
     </BODY>

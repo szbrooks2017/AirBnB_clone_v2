@@ -68,6 +68,10 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
 
+    def close(self):
+        """ removing private session"""
+        self.__session.remove()
+
     def reload(self):
         """  """
         from sqlalchemy.orm import sessionmaker, scoped_session

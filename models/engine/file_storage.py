@@ -25,6 +25,10 @@ class FileStorage:
                 tmp_dict[key] = value
         return tmp_dict
 
+    def close(self):
+        """ deserialize json file to obj"""
+        self.reload()
+
     def delete(self, obj=None):
         """del obj from __objects"""
         if obj:

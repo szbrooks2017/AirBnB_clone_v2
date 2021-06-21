@@ -25,6 +25,7 @@ def c_text(text):
 def p_text(text="is cool"):
     return "Python {}".format(text.replace('_', ' '))
 
+
 @app.route('/number/<int:n>', strict_slashes=False)
 def n_number(n):
     return "{} is a number".format(n)

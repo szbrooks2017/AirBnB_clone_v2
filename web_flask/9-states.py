@@ -18,8 +18,7 @@ def state_by_id(id):
     states = storage.all(State).values()
     for state in states:
         if id == state.id:
-            return render_template('9-states.html', states=states, found=True)
-    return render_template('9-states.html')
+            return render_template('9-states.html', states=states, state_cities=state.cities, found=True)
 
 @app.teardown_appcontext
 def teardown(error):

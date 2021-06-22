@@ -13,12 +13,14 @@ def state_list():
     states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
-@app.route("/state/<id>", strict_slashes=False)
-def state_by_id(id):
-    states = storage.all(State).values()
-    for state in states:
-        if id == state.id:
-            return render_template('9-states.html', states=states, state_cities=state.cities, found=True)
+@app.route("/states/<id>", strict_slashes=False)
+def state_by_id(id=None):
+    states_value = storage.all(State)
+    if id:
+        states = states_value.get('State.{}'.format(id))
+    else:
+        states = states_value.values()
+    return render_template('9-states.html', states=states, found=True)
 
 @app.teardown_appcontext
 def teardown(error):

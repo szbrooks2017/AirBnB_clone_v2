@@ -13,6 +13,7 @@ def state_list():
     states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
+
 @app.route("/states/<id>", strict_slashes=False)
 def state_by_id(id=None):
     states_value = storage.all(State)
@@ -21,6 +22,7 @@ def state_by_id(id=None):
     else:
         states = states_value.values()
     return render_template('9-states.html', states=states, found=True)
+
 
 @app.teardown_appcontext
 def teardown(error):
